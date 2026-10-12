@@ -9,6 +9,8 @@ import { AdminHomePage, PendingAccessPage, StudentHomePage, TeacherHomePage } fr
 import { EditStudentPage } from "../features/students/pages/EditStudentPage";
 import { StudentDetailPage } from "../features/students/pages/StudentDetailPage";
 import { StudentListPage } from "../features/students/pages/StudentListPage";
+import { TeacherDetailPage } from "../features/teachers/pages/TeacherDetailPage";
+import { TeacherListPage } from "../features/teachers/pages/TeacherListPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { AppHomeRedirect, GuestOnly, RequireAuth, RequirePersona } from "../routes/guards";
 
@@ -44,6 +46,8 @@ export function AppRouter() {
             <Route element={<RequirePersona allow={["admin", "teacher", "student"]} />}>
               <Route path="/app/students" element={<StudentListPage />} />
               <Route path="/app/students/:id" element={<StudentDetailPage />} />
+              <Route path="/app/teachers" element={<TeacherListPage />} />
+              <Route path="/app/teachers/:id" element={<TeacherDetailPage />} />
             </Route>
           </Route>
         </Route>

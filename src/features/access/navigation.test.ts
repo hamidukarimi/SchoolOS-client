@@ -24,12 +24,23 @@ describe("navigation", () => {
     expect(destinations).not.toContain("/app/student");
   });
 
-  it("shows a student their own record and not the administrator home", () => {
-    const labels = navigationFor("student").map((item) => item.label);
-    expect(labels).toContain("My record");
-    expect(labels).not.toContain("Students");
-    expect(navigationFor("admin").map((item) => item.label)).toContain("Students");
-    expect(navigationFor("unscoped").map((item) => item.to)).not.toContain("/app/students");
+  it("shows a teacher their own teaching record and not every teacher", () => {
+    const labels = navigationFor("teacher").map((item) => item.label);
+    expect(labels).toContain("Teaching record");
+    expect(labels).toContain("Students");
+    expect(labels).not.toContain("Teachers");
+    expect(navigationFor("teacher").map((item) => item.to)).not.toContain("/app/admin");
+  });
+
+  it("shows class teachers to a student and the full section to an administrator", () => {
+    expect(navigationFor("student").map((item) => item.label)).toEqual(
+      expect.arrayContaining(["My record", "Teachers"]),
+    );
+    expect(navigationFor("student").map((item) => item.label)).not.toContain("Students");
+    expect(navigationFor("admin").map((item) => item.label)).toEqual(
+      expect.arrayContaining(["Students", "Teachers"]),
+    );
+    expect(navigationFor("unscoped").map((item) => item.to)).not.toContain("/app/teachers");
   });
 
   it("limits an unscoped user to home, profile, and password", () => {
