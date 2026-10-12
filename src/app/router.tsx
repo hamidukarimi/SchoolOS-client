@@ -9,6 +9,7 @@ import { AdminHomePage, PendingAccessPage, StudentHomePage, TeacherHomePage } fr
 import { EditStudentPage } from "../features/students/pages/EditStudentPage";
 import { StudentDetailPage } from "../features/students/pages/StudentDetailPage";
 import { StudentListPage } from "../features/students/pages/StudentListPage";
+import { EditTeacherPage } from "../features/teachers/pages/EditTeacherPage";
 import { TeacherDetailPage } from "../features/teachers/pages/TeacherDetailPage";
 import { TeacherListPage } from "../features/teachers/pages/TeacherListPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
@@ -33,6 +34,7 @@ export function AppRouter() {
             <Route element={<RequirePersona allow="admin" />}>
               <Route path="/app/admin" element={<AdminHomePage />} />
               <Route path="/app/students/:id/edit" element={<EditStudentPage />} />
+              <Route path="/app/teachers/:id/edit" element={<EditTeacherPage />} />
             </Route>
             <Route element={<RequirePersona allow="teacher" />}>
               <Route path="/app/teacher" element={<TeacherHomePage />} />
