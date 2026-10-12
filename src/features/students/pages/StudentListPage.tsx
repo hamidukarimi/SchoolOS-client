@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router";
+import { Link, useLocation, useSearchParams } from "react-router";
 import { Alert, ServerErrorAlert } from "../../../components/ui/Alert";
 import { Button } from "../../../components/ui/Button";
 import { SelectField } from "../../../components/ui/SelectField";
@@ -9,7 +9,7 @@ import { TextField } from "../../../components/ui/TextField";
 import { useAccess } from "../../access/access-context";
 import { getApiErrorMessage } from "../../../services/api-error";
 import { fetchStudents, studentListKey } from "../api";
-import { studentStatusLabel } from "../display";
+import { studentStatusLabel, readNotice } from "../display";
 import { parseStudentListQuery } from "../query";
 import { STUDENT_STATUSES, type StudentListQuery, type StudentStatus } from "../types";
 
@@ -28,6 +28,8 @@ function replaceQuery(
 
 export function StudentListPage() {
   const access = useAccess();
+  const location = useLocation();
+  const notice = readNotice(location.state);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = parseStudentListQuery(searchParams);
   const [searchDraft, setSearchDraft] = useState(query.search);
@@ -55,6 +57,7 @@ export function StudentListPage() {
         <h1 className="font-serif text-4xl">{heading}</h1>
         <p className="mt-3 max-w-3xl leading-7 text-slate-700">{introduction}</p>
       </div>
+      {notice ? <Alert tone="success">{notice}</Alert> : null}
 
       <form
         className="grid gap-4 rounded-xl border border-line bg-white p-4 md:grid-cols-[1fr_14rem_auto] md:items-end"

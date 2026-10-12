@@ -17,6 +17,12 @@ export function studentGenderLabel(gender: StudentGender): string {
   return gender === "male" ? "Male" : "Female";
 }
 
+export function readNotice(value: unknown): string | null {
+  if (!value || typeof value !== "object" || !("notice" in value)) return null;
+  const notice = (value as { notice?: unknown }).notice;
+  return typeof notice === "string" && notice.trim() ? notice : null;
+}
+
 export function formatStudentDate(value: string): string {
   const day = /^(\d{4}-\d{2}-\d{2})/.exec(value)?.[1];
   if (!day) return "Not recorded";

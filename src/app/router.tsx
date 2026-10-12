@@ -6,6 +6,7 @@ import { ChangePasswordPage } from "../features/auth/pages/ChangePasswordPage";
 import { ProfilePage } from "../features/auth/pages/ProfilePage";
 import { AppLayout, MarketingLayout } from "../layouts/AppLayouts";
 import { AdminHomePage, PendingAccessPage, StudentHomePage, TeacherHomePage } from "../features/access/pages/AccessPages";
+import { EditStudentPage } from "../features/students/pages/EditStudentPage";
 import { StudentDetailPage } from "../features/students/pages/StudentDetailPage";
 import { StudentListPage } from "../features/students/pages/StudentListPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
@@ -29,6 +30,7 @@ export function AppRouter() {
             <Route path="/app/profile/password" element={<ChangePasswordPage />} />
             <Route element={<RequirePersona allow="admin" />}>
               <Route path="/app/admin" element={<AdminHomePage />} />
+              <Route path="/app/students/:id/edit" element={<EditStudentPage />} />
             </Route>
             <Route element={<RequirePersona allow="teacher" />}>
               <Route path="/app/teacher" element={<TeacherHomePage />} />
