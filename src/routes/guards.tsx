@@ -48,8 +48,9 @@ export function GuestOnly() {
   return <Outlet />;
 }
 
-export function RequirePersona({ allow }: { allow: SchoolPersona }) {
+export function RequirePersona({ allow }: { allow: SchoolPersona | readonly SchoolPersona[] }) {
   const access = useAccess();
+  const allowed = Array.isArray(allow) ? allow : [allow];
 
   if (access.status === "idle" || access.status === "loading") {
     return <FullPageSpinner label="Checking school access" />;
@@ -59,7 +60,7 @@ export function RequirePersona({ allow }: { allow: SchoolPersona }) {
     return <AccessErrorState />;
   }
 
-  if (access.context.persona !== allow) {
+  if (!allowed.includes(access.context.persona)) {
     return <UnauthorizedPage />;
   }
 

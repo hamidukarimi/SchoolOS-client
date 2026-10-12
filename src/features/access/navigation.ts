@@ -1,4 +1,4 @@
-import { GraduationCap, House, KeyRound, Shield, UserRound, UserX } from "lucide-react";
+import { GraduationCap, House, IdCard, KeyRound, Shield, UserRound, Users, UserX } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { SchoolPersona } from "./types";
 
@@ -38,6 +38,18 @@ const navItems: NavItem[] = [
     personas: ["unscoped"],
     icon: UserX,
     end: true,
+  },
+  {
+    label: "Students",
+    to: "/app/students",
+    personas: ["admin", "teacher"],
+    icon: Users,
+  },
+  {
+    label: "My record",
+    to: "/app/students",
+    personas: ["student"],
+    icon: IdCard,
   },
   {
     label: "Profile",

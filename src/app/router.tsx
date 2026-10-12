@@ -6,6 +6,8 @@ import { ChangePasswordPage } from "../features/auth/pages/ChangePasswordPage";
 import { ProfilePage } from "../features/auth/pages/ProfilePage";
 import { AppLayout, MarketingLayout } from "../layouts/AppLayouts";
 import { AdminHomePage, PendingAccessPage, StudentHomePage, TeacherHomePage } from "../features/access/pages/AccessPages";
+import { StudentDetailPage } from "../features/students/pages/StudentDetailPage";
+import { StudentListPage } from "../features/students/pages/StudentListPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { AppHomeRedirect, GuestOnly, RequireAuth, RequirePersona } from "../routes/guards";
 
@@ -36,6 +38,10 @@ export function AppRouter() {
             </Route>
             <Route element={<RequirePersona allow="unscoped" />}>
               <Route path="/app/pending" element={<PendingAccessPage />} />
+            </Route>
+            <Route element={<RequirePersona allow={["admin", "teacher", "student"]} />}>
+              <Route path="/app/students" element={<StudentListPage />} />
+              <Route path="/app/students/:id" element={<StudentDetailPage />} />
             </Route>
           </Route>
         </Route>
