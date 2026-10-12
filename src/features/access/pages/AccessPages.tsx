@@ -1,0 +1,99 @@
+import { Link } from "react-router";
+import { Alert } from "../../../components/ui/Alert";
+import { Button, buttonClass } from "../../../components/ui/Button";
+import { useAccess } from "../access-context";
+import { homePathFor, personaLabel } from "../navigation";
+
+export function AdminHomePage() {
+  return (
+    <section className="max-w-2xl">
+      <p className="text-sm font-medium tracking-wide text-pine uppercase">Administrator</p>
+      <h1 className="mt-2 font-serif text-4xl">School administration</h1>
+      <p className="mt-4 leading-7 text-slate-700">
+        This account is an administrator because its role is admin. School management pages are
+        not available in this step.
+      </p>
+    </section>
+  );
+}
+
+export function TeacherHomePage() {
+  return (
+    <section className="max-w-2xl">
+      <p className="text-sm font-medium tracking-wide text-pine uppercase">Teacher</p>
+      <h1 className="mt-2 font-serif text-4xl">Teacher access</h1>
+      <p className="mt-4 leading-7 text-slate-700">
+        This account role is user. A teacher profile linked to the account gives teacher access.
+        Class, attendance, and grade tools are not available in this step.
+      </p>
+    </section>
+  );
+}
+
+export function StudentHomePage() {
+  return (
+    <section className="max-w-2xl">
+      <p className="text-sm font-medium tracking-wide text-pine uppercase">Student</p>
+      <h1 className="mt-2 font-serif text-4xl">Student access</h1>
+      <p className="mt-4 leading-7 text-slate-700">
+        This account role is user. A student profile linked to the account gives student access.
+        Class, attendance, and grade tools are not available in this step.
+      </p>
+    </section>
+  );
+}
+
+export function PendingAccessPage() {
+  return (
+    <section className="max-w-2xl">
+      <p className="text-sm font-medium tracking-wide text-pine uppercase">No school profile</p>
+      <h1 className="mt-2 font-serif text-4xl">School access is not assigned</h1>
+      <p className="mt-4 leading-7 text-slate-700">
+        You are signed in as a standard user. No teacher or student profile is linked to this
+        account, so school records are not available. An administrator needs to link a profile
+        before that access exists. A staff record by itself does not grant it.
+      </p>
+      <p className="mt-4 leading-7 text-slate-700">
+        You can update your profile and password from this account.
+      </p>
+    </section>
+  );
+}
+
+export function UnauthorizedPage() {
+  const { context } = useAccess();
+  const home = context ? homePathFor(context.persona) : "/app/profile";
+
+  return (
+    <section className="max-w-2xl">
+      <h1 className="font-serif text-4xl">This page is unavailable</h1>
+      <p className="mt-4 leading-7 text-slate-700">
+        {context
+          ? `Your current access is ${personaLabel(context.persona)}. This page belongs to a different school access level.`
+          : "Your school access does not include this page."}
+      </p>
+      <Link to={home} className={`${buttonClass("primary")} mt-6`}>
+        Go to your home
+      </Link>
+    </section>
+  );
+}
+
+export function AccessErrorState() {
+  const { errorMessage, retry } = useAccess();
+
+  return (
+    <section className="max-w-2xl">
+      <h1 className="font-serif text-4xl">School access could not be checked</h1>
+      <div className="mt-4">
+        <Alert tone="error">{errorMessage ?? "School access could not be verified."}</Alert>
+      </div>
+      <p className="mt-4 leading-7 text-slate-700">
+        Profile and password remain available. School pages stay closed until this check succeeds.
+      </p>
+      <Button type="button" className="mt-6" onClick={retry}>
+        Try again
+      </Button>
+    </section>
+  );
+}

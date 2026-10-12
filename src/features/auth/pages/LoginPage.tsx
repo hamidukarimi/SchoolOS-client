@@ -30,7 +30,7 @@ export function LoginPage() {
     setServerError(null);
     try {
       await login(values);
-      const destination = from && from.startsWith("/app/") ? from : "/app/profile";
+      const destination = from && from.startsWith("/app/") ? from : "/app";
       navigate(destination, { replace: true });
     } catch (error) {
       setServerError(getApiErrorMessage(error));

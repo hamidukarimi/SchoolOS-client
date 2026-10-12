@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import axios from "axios";
 import type { ReactNode } from "react";
 import { AuthProvider } from "../features/auth/auth-context";
+import { AccessProvider } from "../features/access/access-context";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,7 +18,9 @@ export const queryClient = new QueryClient({
 export function AppProviders({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>{children}</AuthProvider>
+      <AuthProvider>
+        <AccessProvider>{children}</AccessProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

@@ -1,10 +1,14 @@
 import { Navigate, Outlet, useLocation } from "react-router";
 import { FullPageSpinner } from "../components/ui/Spinner";
+import { useAccess } from "../features/access/access-context";
+import { homePathFor } from "../features/access/navigation";
+import type { SchoolPersona } from "../features/access/types";
+import { AccessErrorState, UnauthorizedPage } from "../features/access/pages/AccessPages";
 import { useAuth } from "../features/auth/auth-context";
 
 function safeReturnPath(value: unknown): string {
   if (typeof value === "string" && value.startsWith("/app/")) return value;
-  return "/app/profile";
+  return "/app";
 }
 
 export function RequireAuth() {
@@ -42,4 +46,36 @@ export function GuestOnly() {
   }
 
   return <Outlet />;
+}
+
+export function RequirePersona({ allow }: { allow: SchoolPersona }) {
+  const access = useAccess();
+
+  if (access.status === "idle" || access.status === "loading") {
+    return <FullPageSpinner label="Checking school access" />;
+  }
+
+  if (access.status === "error" || !access.context) {
+    return <AccessErrorState />;
+  }
+
+  if (access.context.persona !== allow) {
+    return <UnauthorizedPage />;
+  }
+
+  return <Outlet />;
+}
+
+export function AppHomeRedirect() {
+  const access = useAccess();
+
+  if (access.status === "idle" || access.status === "loading") {
+    return <FullPageSpinner label="Checking school access" />;
+  }
+
+  if (access.status === "error" || !access.context) {
+    return <AccessErrorState />;
+  }
+
+  return <Navigate to={homePathFor(access.context.persona)} replace />;
 }
