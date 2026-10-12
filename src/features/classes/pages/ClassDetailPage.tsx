@@ -174,7 +174,19 @@ function ClassRoster({
     <section className="rounded-xl border border-line bg-white p-4">
       <h2 className="text-base font-medium">Students in this class</h2>
       <p className="mt-2 text-sm leading-6 text-slate-700">
-        This list comes from the class record. Changing enrollment is not available here.
+        This list comes from the class record.
+        {persona === "admin" ? (
+          <>
+            {" "}
+            Add or remove students from{" "}
+            <Link to={`/app/enrollments/${classRecord.id}`} className="underline decoration-line underline-offset-4">
+              Enrollment
+            </Link>
+            .
+          </>
+        ) : (
+          " Changing this list is limited to administrators."
+        )}
       </p>
       {classRecord.studentCount === 0 ? (
         <p className="mt-4 text-sm text-slate-600">No students are listed on this class.</p>

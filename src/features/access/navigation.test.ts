@@ -39,8 +39,10 @@ describe("navigation", () => {
     );
     expect(navigationFor("student").map((item) => item.label)).not.toContain("Students");
     expect(navigationFor("admin").map((item) => item.label)).toEqual(
-      expect.arrayContaining(["Students", "Teachers", "Classes"]),
+      expect.arrayContaining(["Students", "Teachers", "Classes", "Enrollment"]),
     );
+    expect(navigationFor("teacher").map((item) => item.label)).not.toContain("Enrollment");
+    expect(navigationFor("student").map((item) => item.label)).not.toContain("Enrollment");
     expect(navigationFor("student").map((item) => item.label)).toContain("Classes");
     expect(navigationFor("unscoped").map((item) => item.to)).not.toContain("/app/teachers");
     expect(navigationFor("unscoped").map((item) => item.to)).not.toContain("/app/classes");

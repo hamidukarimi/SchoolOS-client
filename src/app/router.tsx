@@ -16,6 +16,8 @@ import { ClassDetailPage } from "../features/classes/pages/ClassDetailPage";
 import { ClassListPage } from "../features/classes/pages/ClassListPage";
 import { CreateClassPage } from "../features/classes/pages/CreateClassPage";
 import { EditClassPage } from "../features/classes/pages/EditClassPage";
+import { EnrollmentListPage } from "../features/enrollments/pages/EnrollmentListPage";
+import { EnrollmentManagePage } from "../features/enrollments/pages/EnrollmentManagePage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { AppHomeRedirect, GuestOnly, RequireAuth, RequirePersona } from "../routes/guards";
 
@@ -41,6 +43,8 @@ export function AppRouter() {
               <Route path="/app/teachers/:id/edit" element={<EditTeacherPage />} />
               <Route path="/app/classes/new" element={<CreateClassPage />} />
               <Route path="/app/classes/:id/edit" element={<EditClassPage />} />
+              <Route path="/app/enrollments" element={<EnrollmentListPage />} />
+              <Route path="/app/enrollments/:classId" element={<EnrollmentManagePage />} />
             </Route>
             <Route element={<RequirePersona allow="teacher" />}>
               <Route path="/app/teacher" element={<TeacherHomePage />} />

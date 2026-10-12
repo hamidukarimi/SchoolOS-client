@@ -11,7 +11,8 @@ export function AdminHomePage() {
       <h1 className="mt-2 font-serif text-4xl">School administration</h1>
       <p className="mt-4 leading-7 text-slate-700">
         This account is an administrator because its role is admin. Student records can be opened
-        from Students, teacher records from Teachers, and classes from Classes.
+        from Students, teacher records from Teachers, classes from Classes, and class lists from
+        Enrollment.
       </p>
     </section>
   );
