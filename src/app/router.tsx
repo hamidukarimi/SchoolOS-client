@@ -12,6 +12,8 @@ import { StudentListPage } from "../features/students/pages/StudentListPage";
 import { EditTeacherPage } from "../features/teachers/pages/EditTeacherPage";
 import { TeacherDetailPage } from "../features/teachers/pages/TeacherDetailPage";
 import { TeacherListPage } from "../features/teachers/pages/TeacherListPage";
+import { ClassDetailPage } from "../features/classes/pages/ClassDetailPage";
+import { ClassListPage } from "../features/classes/pages/ClassListPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { AppHomeRedirect, GuestOnly, RequireAuth, RequirePersona } from "../routes/guards";
 
@@ -50,6 +52,8 @@ export function AppRouter() {
               <Route path="/app/students/:id" element={<StudentDetailPage />} />
               <Route path="/app/teachers" element={<TeacherListPage />} />
               <Route path="/app/teachers/:id" element={<TeacherDetailPage />} />
+              <Route path="/app/classes" element={<ClassListPage />} />
+              <Route path="/app/classes/:id" element={<ClassDetailPage />} />
             </Route>
           </Route>
         </Route>

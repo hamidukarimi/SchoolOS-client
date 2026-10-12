@@ -11,7 +11,7 @@ export function AdminHomePage() {
       <h1 className="mt-2 font-serif text-4xl">School administration</h1>
       <p className="mt-4 leading-7 text-slate-700">
         This account is an administrator because its role is admin. Student records can be opened
-        from Students, and teacher records from Teachers.
+        from Students, teacher records from Teachers, and classes from Classes.
       </p>
     </section>
   );
@@ -25,7 +25,7 @@ export function TeacherHomePage() {
       <p className="mt-4 leading-7 text-slate-700">
         This account role is user. A teacher profile linked to the account gives teacher access.
         Students enrolled in your classes can be opened from Students. Your own teaching profile
-        is under Teaching record.
+        is under Teaching record, and the classes you teach are under Classes.
       </p>
     </section>
   );
@@ -38,7 +38,8 @@ export function StudentHomePage() {
       <h1 className="mt-2 font-serif text-4xl">Student access</h1>
       <p className="mt-4 leading-7 text-slate-700">
         This account role is user. A student profile linked to the account gives student access.
-        Your own student profile can be opened from My record, and your class teachers from Teachers.
+        Your own student profile can be opened from My record, your class teachers from Teachers,
+        and your classes from Classes.
       </p>
     </section>
   );
