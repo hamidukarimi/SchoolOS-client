@@ -12,7 +12,7 @@ export function AdminHomePage() {
       <h1 className="mt-2 font-serif text-4xl">School administration</h1>
       <p className="mt-4 leading-7 text-slate-700">
         This account is an administrator because its role is admin. Student records can be opened
-        from Students, teacher records from Teachers, classes from Classes, class lists from
+        from Students, teacher records from Teachers, staff records from Staff, classes from Classes, class lists from
         Enrollment, attendance from Attendance, results from Results, exams from Exams, the schedule from Timetable, fees from Fees, and the catalog from Library.
         The counts below are the totals those lists return for this account.
       </p>

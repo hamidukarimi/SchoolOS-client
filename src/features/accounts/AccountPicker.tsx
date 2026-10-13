@@ -12,7 +12,7 @@ export function AccountPicker({
   selectedId,
   onSelect,
 }: {
-  profile: "student" | "teacher";
+  profile: "student" | "teacher" | "staff";
   selectedId: string;
   onSelect: (account: AccountChoice) => void;
 }) {

@@ -67,8 +67,9 @@ export async function searchAccounts(search: string): Promise<AccountSearchResul
 
 export function accountLinkState(
   account: AccountChoice,
-  profile: "student" | "teacher",
+  profile: "student" | "teacher" | "staff",
 ): { disabled: boolean; reason: string | null } {
+  if (profile === "staff") return { disabled: false, reason: null };
   if (profile === "student" && account.hasStudentProfile) {
     return { disabled: true, reason: "Already has a student profile" };
   }

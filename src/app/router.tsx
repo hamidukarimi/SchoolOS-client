@@ -49,6 +49,10 @@ import { BookDetailPage } from "../features/library/pages/BookDetailPage";
 import { BorrowListPage } from "../features/library/pages/BorrowListPage";
 import { CreateBookPage } from "../features/library/pages/CreateBookPage";
 import { EditBookPage } from "../features/library/pages/EditBookPage";
+import { CreateStaffPage } from "../features/staff/pages/CreateStaffPage";
+import { EditStaffPage } from "../features/staff/pages/EditStaffPage";
+import { StaffDetailPage } from "../features/staff/pages/StaffDetailPage";
+import { StaffListPage } from "../features/staff/pages/StaffListPage";
 import { NotificationDetailPage } from "../features/notifications/pages/NotificationDetailPage";
 import { NotificationListPage } from "../features/notifications/pages/NotificationListPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
@@ -96,6 +100,10 @@ export function AppRouter() {
               <Route path="/app/fees/:id/edit" element={<EditFeePage />} />
               <Route path="/app/library/books/new" element={<CreateBookPage />} />
               <Route path="/app/library/books/:id/edit" element={<EditBookPage />} />
+              <Route path="/app/staff" element={<StaffListPage />} />
+              <Route path="/app/staff/new" element={<CreateStaffPage />} />
+              <Route path="/app/staff/:id" element={<StaffDetailPage />} />
+              <Route path="/app/staff/:id/edit" element={<EditStaffPage />} />
               <Route path="/app/announcements/new" element={<CreateAnnouncementPage />} />
               <Route path="/app/announcements/:id/edit" element={<EditAnnouncementPage />} />
             </Route>
