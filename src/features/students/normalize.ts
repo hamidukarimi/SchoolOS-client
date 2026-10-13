@@ -2,6 +2,8 @@ import {
   STUDENT_GENDERS,
   STUDENT_STATUSES,
   type StudentAccountLink,
+  type EnrolledClass,
+  type EnrolledClassTeacher,
   type StudentClassSummary,
   type StudentListResult,
   type StudentRecord,
@@ -51,6 +53,45 @@ function readClass(value: unknown): StudentClassSummary | null {
   const section = readText(value, "section").trim();
   if (!id || !name) return null;
   return { id, name, section };
+}
+
+function readEnrolledTeacher(value: unknown): EnrolledClassTeacher | null {
+  if (!isRecord(value)) return null;
+  const id = readId(value.id) ?? readId(value._id);
+  if (!id) return null;
+  return {
+    id,
+    firstName: readText(value, "firstName").trim(),
+    lastName: readText(value, "lastName").trim(),
+    teacherId: readText(value, "teacherId").trim(),
+  };
+}
+
+export function normalizeEnrolledClasses(value: unknown): EnrolledClass[] {
+  if (!isRecord(value) || !Array.isArray(value.classes)) {
+    throw new Error("Enrolled classes response was not valid.");
+  }
+
+  return value.classes.map((item) => {
+    if (!isRecord(item)) {
+      throw new Error("Enrolled classes response was not valid.");
+    }
+    const id = readId(item.id) ?? readId(item._id);
+    const name = readText(item, "name").trim();
+    const grade = readText(item, "grade").trim();
+    const academicYear = readText(item, "academicYear").trim();
+    if (!id || !name || !grade || !academicYear) {
+      throw new Error("Enrolled classes response was not valid.");
+    }
+    return {
+      id,
+      name,
+      section: readText(item, "section").trim(),
+      grade,
+      academicYear,
+      teacher: readEnrolledTeacher(item.teacher),
+    };
+  });
 }
 
 export function normalizeStudent(value: unknown): StudentRecord {

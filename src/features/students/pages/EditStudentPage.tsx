@@ -11,7 +11,7 @@ import { TextField } from "../../../components/ui/TextField";
 import { toDateInputValue } from "../../auth/schemas";
 import { getApiErrorMessage, type ParsedApiError } from "../../../services/api-error";
 import { fetchStudent, studentDetailKey, updateStudent } from "../api";
-import { studentClassLabel, studentStatusLabel } from "../display";
+import { studentStatusLabel } from "../display";
 import { studentFormSchema, toStudentUpdatePayload, type StudentFormValues } from "../schemas";
 import { STUDENT_GENDERS, STUDENT_STATUSES, type StudentRecord } from "../types";
 
@@ -110,8 +110,8 @@ export function EditStudentPage() {
           <dd className="mt-1 text-sm font-medium">{student.account?.email ?? "No account email was returned"}</dd>
         </div>
         <div>
-          <dt className="text-sm text-slate-600">Class</dt>
-          <dd className="mt-1 text-sm font-medium">{studentClassLabel(student.classSummary)}</dd>
+          <dt className="text-sm text-slate-600">Classes</dt>
+          <dd className="mt-1 text-sm font-medium">Listed on the student profile from class enrollment. This form does not change them.</dd>
         </div>
         <div>
           <dt className="text-sm text-slate-600">Enrollment date</dt>

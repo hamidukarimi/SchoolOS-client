@@ -1,4 +1,5 @@
-import type { StudentClassSummary, StudentGender, StudentStatus } from "./types";
+import type { SchoolPersona } from "../access/types";
+import type { EnrolledClass, StudentClassSummary, StudentGender, StudentStatus } from "./types";
 
 export function studentStatusLabel(status: StudentStatus): string {
   switch (status) {
@@ -34,4 +35,37 @@ export function formatStudentDate(value: string): string {
 export function studentClassLabel(summary: StudentClassSummary | null): string {
   if (!summary) return "Not assigned";
   return summary.section ? `${summary.name}, section ${summary.section}` : summary.name;
+}
+
+export const enrolledClassesEmptyMessage = "This student is not enrolled in a class.";
+
+export function enrolledClassTitle(entry: EnrolledClass): string {
+  return entry.section ? `${entry.name}, section ${entry.section}` : entry.name;
+}
+
+export function enrolledClassMeta(entry: EnrolledClass): string {
+  return `Grade ${entry.grade} · ${entry.academicYear}`;
+}
+
+export function enrolledClassTeacherLabel(entry: EnrolledClass): string {
+  if (!entry.teacher) return "No teacher assigned";
+  const name = `${entry.teacher.firstName} ${entry.teacher.lastName}`.trim();
+  if (!name) return "No teacher assigned";
+  return entry.teacher.teacherId ? `${name} · ${entry.teacher.teacherId}` : name;
+}
+
+export function canOpenEnrolledClass(
+  persona: SchoolPersona | undefined,
+  teacherProfileId: string | undefined,
+  entry: EnrolledClass,
+): boolean {
+  if (persona === "admin" || persona === "student") return true;
+  if (persona === "teacher") return Boolean(teacherProfileId && entry.teacher?.id === teacherProfileId);
+  return false;
+}
+
+export function enrolledClassesPanel(status: "loading" | "error" | "ready", count: number): "loading" | "error" | "empty" | "list" {
+  if (status === "loading") return "loading";
+  if (status === "error") return "error";
+  return count === 0 ? "empty" : "list";
 }

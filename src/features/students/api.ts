@@ -1,8 +1,8 @@
 import type { ApiSuccess } from "../auth/types";
 import { http } from "../../services/http";
-import { normalizeStudent, normalizeStudentList } from "./normalize";
+import { normalizeEnrolledClasses, normalizeStudent, normalizeStudentList } from "./normalize";
 import { STUDENT_PAGE_SIZE } from "./query";
-import type { StudentListQuery, StudentListResult, StudentRecord, StudentUpdatePayload } from "./types";
+import type { EnrolledClass, StudentListQuery, StudentListResult, StudentRecord, StudentUpdatePayload } from "./types";
 
 export function studentListKey(query: StudentListQuery) {
   return ["students", query] as const;
@@ -10,6 +10,10 @@ export function studentListKey(query: StudentListQuery) {
 
 export function studentDetailKey(id: string) {
   return ["students", "detail", id] as const;
+}
+
+export function studentClassesKey(studentId: string) {
+  return ["classes", "for-student", studentId] as const;
 }
 
 function requireData<T>(data: T | undefined, action: string): T {
@@ -34,6 +38,11 @@ export async function fetchStudents(query: StudentListQuery): Promise<StudentLis
 export async function fetchStudent(id: string): Promise<StudentRecord> {
   const response = await http.get<ApiSuccess<unknown>>(`/students/${id}`);
   return normalizeStudent(requireData(response.data.data, "Student"));
+}
+
+export async function fetchStudentClasses(studentId: string): Promise<EnrolledClass[]> {
+  const response = await http.get<ApiSuccess<unknown>>(`/students/${studentId}/classes`);
+  return normalizeEnrolledClasses(requireData(response.data.data, "Enrolled classes"));
 }
 
 export async function updateStudent(

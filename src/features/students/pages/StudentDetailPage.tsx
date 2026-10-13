@@ -3,12 +3,24 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router";
 import { Alert, ServerErrorAlert } from "../../../components/ui/Alert";
 import { Button, buttonClass } from "../../../components/ui/Button";
-import { FullPageSpinner } from "../../../components/ui/Spinner";
+import { FullPageSpinner, Spinner } from "../../../components/ui/Spinner";
 import { useAccess } from "../../access/access-context";
+import type { SchoolPersona } from "../../access/types";
 import { getApiErrorMessage, type ParsedApiError } from "../../../services/api-error";
-import { deleteStudent, fetchStudent, studentDetailKey } from "../api";
-import { formatStudentDate, readNotice, studentClassLabel, studentGenderLabel, studentStatusLabel } from "../display";
-import type { StudentRecord } from "../types";
+import { deleteStudent, fetchStudent, fetchStudentClasses, studentClassesKey, studentDetailKey } from "../api";
+import {
+  canOpenEnrolledClass,
+  enrolledClassMeta,
+  enrolledClassesEmptyMessage,
+  enrolledClassesPanel,
+  enrolledClassTeacherLabel,
+  enrolledClassTitle,
+  formatStudentDate,
+  readNotice,
+  studentGenderLabel,
+  studentStatusLabel,
+} from "../display";
+import type { EnrolledClass, StudentRecord } from "../types";
 
 export function StudentDetailPage() {
   const { id = "" } = useParams();
@@ -23,6 +35,11 @@ export function StudentDetailPage() {
     queryKey: studentDetailKey(id),
     queryFn: () => fetchStudent(id),
     enabled: Boolean(id),
+  });
+  const classesQuery = useQuery({
+    queryKey: studentClassesKey(id),
+    queryFn: () => fetchStudentClasses(id),
+    enabled: Boolean(id) && studentQuery.isSuccess,
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteStudent(id),
@@ -80,6 +97,16 @@ export function StudentDetailPage() {
       {notice ? <Alert tone="success">{notice}</Alert> : null}
       {serverError ? <ServerErrorAlert error={serverError} /> : null}
       <StudentFacts student={student} />
+      <EnrolledClasses
+        classes={classesQuery.data ?? []}
+        panel={enrolledClassesPanel(
+          classesQuery.isPending ? "loading" : classesQuery.isError ? "error" : "ready",
+          classesQuery.data?.length ?? 0,
+        )}
+        error={classesQuery.error ? getApiErrorMessage(classesQuery.error) : null}
+        persona={access.context?.persona}
+        teacherProfileId={access.context?.teacherProfileId}
+      />
       {canManage ? (
         <div className="rounded-xl border border-rose-200 bg-white p-4">
           <h2 className="text-base font-medium text-ink">Delete student profile</h2>
@@ -123,7 +150,6 @@ export function StudentFacts({ student }: { student: StudentRecord }) {
     ["Gender", studentGenderLabel(student.gender)],
     ["Phone", student.phone || "Not recorded"],
     ["Address", student.address || "Not recorded"],
-    ["Class", studentClassLabel(student.classSummary)],
     ["Linked account", student.account?.email ?? "No account email was returned"],
     ["Parent or guardian", student.parentName || "Not recorded"],
     ["Parent phone", student.parentPhone || "Not recorded"],
@@ -140,5 +166,60 @@ export function StudentFacts({ student }: { student: StudentRecord }) {
         </div>
       ))}
     </dl>
+  );
+}
+
+export function EnrolledClasses({
+  classes,
+  panel,
+  error,
+  persona,
+  teacherProfileId,
+}: {
+  classes: EnrolledClass[];
+  panel: "loading" | "error" | "empty" | "list";
+  error: ParsedApiError | null;
+  persona: SchoolPersona | undefined;
+  teacherProfileId?: string;
+}) {
+  return (
+    <section className="rounded-xl border border-line bg-white p-4">
+      <h2 className="text-base font-medium text-ink">Enrolled classes</h2>
+      <p className="mt-2 text-sm leading-6 text-slate-700">
+        These are the classes that include this student.
+      </p>
+      {panel === "loading" ? (
+        <div className="mt-4">
+          <Spinner label="Loading classes" />
+        </div>
+      ) : null}
+      {panel === "error" && error ? (
+        <div className="mt-4">
+          <ServerErrorAlert error={error} />
+        </div>
+      ) : null}
+      {panel === "empty" ? <p className="mt-4 text-sm text-slate-700">{enrolledClassesEmptyMessage}</p> : null}
+      {panel === "list" ? (
+        <ul className="mt-4 grid gap-3">
+          {classes.map((entry) => {
+            const title = enrolledClassTitle(entry);
+            const open = canOpenEnrolledClass(persona, teacherProfileId, entry);
+            return (
+              <li key={entry.id} className="rounded-lg border border-line px-4 py-3">
+                {open ? (
+                  <Link to={`/app/classes/${entry.id}`} className="font-medium text-ink hover:text-pine">
+                    {title}
+                  </Link>
+                ) : (
+                  <p className="font-medium text-ink">{title}</p>
+                )}
+                <p className="mt-1 text-sm text-slate-600">{enrolledClassMeta(entry)}</p>
+                <p className="mt-1 text-sm text-slate-600">{enrolledClassTeacherLabel(entry)}</p>
+              </li>
+            );
+          })}
+        </ul>
+      ) : null}
+    </section>
   );
 }

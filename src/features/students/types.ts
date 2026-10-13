@@ -10,6 +10,22 @@ export interface StudentClassSummary {
   section: string;
 }
 
+export interface EnrolledClassTeacher {
+  id: string;
+  firstName: string;
+  lastName: string;
+  teacherId: string;
+}
+
+export interface EnrolledClass {
+  id: string;
+  name: string;
+  section: string;
+  grade: string;
+  academicYear: string;
+  teacher: EnrolledClassTeacher | null;
+}
+
 export interface StudentAccountLink {
   id: string;
   email: string;
