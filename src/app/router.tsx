@@ -40,6 +40,10 @@ import { AnnouncementDetailPage } from "../features/announcements/pages/Announce
 import { AnnouncementListPage } from "../features/announcements/pages/AnnouncementListPage";
 import { CreateAnnouncementPage } from "../features/announcements/pages/CreateAnnouncementPage";
 import { EditAnnouncementPage } from "../features/announcements/pages/EditAnnouncementPage";
+import { CreateFeePage } from "../features/fees/pages/CreateFeePage";
+import { EditFeePage } from "../features/fees/pages/EditFeePage";
+import { FeeDetailPage } from "../features/fees/pages/FeeDetailPage";
+import { FeeListPage } from "../features/fees/pages/FeeListPage";
 import { NotificationDetailPage } from "../features/notifications/pages/NotificationDetailPage";
 import { NotificationListPage } from "../features/notifications/pages/NotificationListPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
@@ -83,6 +87,8 @@ export function AppRouter() {
               <Route path="/app/exams/:id/edit" element={<EditExamPage />} />
               <Route path="/app/timetables/new" element={<CreateTimetablePage />} />
               <Route path="/app/timetables/:id/edit" element={<EditTimetablePage />} />
+              <Route path="/app/fees/new" element={<CreateFeePage />} />
+              <Route path="/app/fees/:id/edit" element={<EditFeePage />} />
               <Route path="/app/announcements/new" element={<CreateAnnouncementPage />} />
               <Route path="/app/announcements/:id/edit" element={<EditAnnouncementPage />} />
             </Route>
@@ -110,6 +116,8 @@ export function AppRouter() {
               <Route path="/app/exams/:id" element={<ExamDetailPage />} />
               <Route path="/app/timetables" element={<TimetableListPage />} />
               <Route path="/app/timetables/:id" element={<TimetableDetailPage />} />
+              <Route path="/app/fees" element={<FeeListPage />} />
+              <Route path="/app/fees/:id" element={<FeeDetailPage />} />
             </Route>
           </Route>
         </Route>

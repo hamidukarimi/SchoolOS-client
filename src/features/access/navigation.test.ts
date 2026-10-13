@@ -41,7 +41,7 @@ describe("navigation", () => {
     );
     expect(navigationFor("student").map((item) => item.label)).not.toContain("Students");
     expect(navigationFor("admin").map((item) => item.label)).toEqual(
-      expect.arrayContaining(["Students", "Teachers", "Classes", "Enrollment", "Attendance", "Results", "Exams", "Timetable", "Announcements", "Notifications"]),
+      expect.arrayContaining(["Students", "Teachers", "Classes", "Enrollment", "Attendance", "Results", "Exams", "Timetable", "Fees", "Announcements", "Notifications"]),
     );
     expect(navigationFor("teacher").map((item) => item.label)).toContain("Attendance");
     expect(navigationFor("teacher").map((item) => item.label)).toContain("Results");
@@ -52,6 +52,8 @@ describe("navigation", () => {
     expect(navigationFor("student").map((item) => item.label)).toContain("Results");
     expect(navigationFor("student").map((item) => item.label)).toContain("Exams");
     expect(navigationFor("student").map((item) => item.label)).toContain("Timetable");
+    expect(navigationFor("teacher").map((item) => item.label)).toContain("Fees");
+    expect(navigationFor("student").map((item) => item.label)).toContain("Fees");
     expect(navigationFor("student").map((item) => item.label)).not.toContain("Enrollment");
     expect(navigationFor("student").map((item) => item.label)).toContain("Classes");
     expect(navigationFor("unscoped").map((item) => item.to)).not.toContain("/app/teachers");
@@ -60,6 +62,7 @@ describe("navigation", () => {
     expect(navigationFor("unscoped").map((item) => item.to)).not.toContain("/app/grades");
     expect(navigationFor("unscoped").map((item) => item.to)).not.toContain("/app/exams");
     expect(navigationFor("unscoped").map((item) => item.to)).not.toContain("/app/timetables");
+    expect(navigationFor("unscoped").map((item) => item.to)).not.toContain("/app/fees");
   });
 
   it("limits an unscoped user to home, announcements, notifications, profile, and password", () => {
