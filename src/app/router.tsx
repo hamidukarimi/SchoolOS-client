@@ -18,6 +18,10 @@ import { CreateClassPage } from "../features/classes/pages/CreateClassPage";
 import { EditClassPage } from "../features/classes/pages/EditClassPage";
 import { EnrollmentListPage } from "../features/enrollments/pages/EnrollmentListPage";
 import { EnrollmentManagePage } from "../features/enrollments/pages/EnrollmentManagePage";
+import { AttendanceDetailPage } from "../features/attendance/pages/AttendanceDetailPage";
+import { AttendanceListPage } from "../features/attendance/pages/AttendanceListPage";
+import { EditAttendancePage } from "../features/attendance/pages/EditAttendancePage";
+import { RecordAttendancePage } from "../features/attendance/pages/RecordAttendancePage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { AppHomeRedirect, GuestOnly, RequireAuth, RequirePersona } from "../routes/guards";
 
@@ -45,6 +49,8 @@ export function AppRouter() {
               <Route path="/app/classes/:id/edit" element={<EditClassPage />} />
               <Route path="/app/enrollments" element={<EnrollmentListPage />} />
               <Route path="/app/enrollments/:classId" element={<EnrollmentManagePage />} />
+              <Route path="/app/attendance/record" element={<RecordAttendancePage />} />
+              <Route path="/app/attendance/:id/edit" element={<EditAttendancePage />} />
             </Route>
             <Route element={<RequirePersona allow="teacher" />}>
               <Route path="/app/teacher" element={<TeacherHomePage />} />
@@ -62,6 +68,8 @@ export function AppRouter() {
               <Route path="/app/teachers/:id" element={<TeacherDetailPage />} />
               <Route path="/app/classes" element={<ClassListPage />} />
               <Route path="/app/classes/:id" element={<ClassDetailPage />} />
+              <Route path="/app/attendance" element={<AttendanceListPage />} />
+              <Route path="/app/attendance/:id" element={<AttendanceDetailPage />} />
             </Route>
           </Route>
         </Route>

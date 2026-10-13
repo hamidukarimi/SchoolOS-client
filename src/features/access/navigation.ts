@@ -1,4 +1,4 @@
-import { Contact, GraduationCap, House, IdCard, KeyRound, Presentation, School, Shield, UserPlus, UserRound, Users, UserX } from "lucide-react";
+import { CalendarCheck, Contact, GraduationCap, House, IdCard, KeyRound, Presentation, School, Shield, UserPlus, UserRound, Users, UserX } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { SchoolPersona } from "./types";
 
@@ -74,6 +74,12 @@ const navItems: NavItem[] = [
     to: "/app/enrollments",
     personas: ["admin"],
     icon: UserPlus,
+  },
+  {
+    label: "Attendance",
+    to: "/app/attendance",
+    personas: ["admin", "teacher", "student"],
+    icon: CalendarCheck,
   },
   {
     label: "Profile",
