@@ -54,6 +54,8 @@ import { EditStaffPage } from "../features/staff/pages/EditStaffPage";
 import { StaffDetailPage } from "../features/staff/pages/StaffDetailPage";
 import { StaffListPage } from "../features/staff/pages/StaffListPage";
 import { MessagesPage } from "../features/messages/pages/MessagesPage";
+import { ReportPage } from "../features/reports/pages/ReportPage";
+import { ReportsHomePage } from "../features/reports/pages/ReportsHomePage";
 import { NotificationDetailPage } from "../features/notifications/pages/NotificationDetailPage";
 import { NotificationListPage } from "../features/notifications/pages/NotificationListPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
@@ -137,6 +139,8 @@ export function AppRouter() {
               <Route path="/app/fees" element={<FeeListPage />} />
               <Route path="/app/fees/:id" element={<FeeDetailPage />} />
               <Route path="/app/library" element={<BookListPage />} />
+              <Route path="/app/reports" element={<ReportsHomePage />} />
+              <Route path="/app/reports/:reportId" element={<ReportPage />} />
               <Route path="/app/library/books/:id" element={<BookDetailPage />} />
               <Route path="/app/library/borrows" element={<BorrowListPage />} />
             </Route>
