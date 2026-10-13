@@ -1,4 +1,4 @@
-import { Award, Bell, CalendarCheck, CalendarDays, ClipboardList, Contact, GraduationCap, House, IdCard, KeyRound, Presentation, School, Shield, UserPlus, UserRound, Users, UserX } from "lucide-react";
+import { Award, Bell, CalendarCheck, CalendarDays, ClipboardList, Contact, GraduationCap, House, IdCard, KeyRound, Megaphone, Presentation, School, Shield, UserPlus, UserRound, Users, UserX } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { SchoolPersona } from "./types";
 
@@ -98,6 +98,12 @@ const navItems: NavItem[] = [
     to: "/app/timetables",
     personas: ["admin", "teacher", "student"],
     icon: CalendarDays,
+  },
+  {
+    label: "Announcements",
+    to: "/app/announcements",
+    personas: ["admin", "teacher", "student", "unscoped"],
+    icon: Megaphone,
   },
   {
     label: "Notifications",

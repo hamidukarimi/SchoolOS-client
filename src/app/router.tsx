@@ -34,6 +34,10 @@ import { CreateTimetablePage } from "../features/timetable/pages/CreateTimetable
 import { EditTimetablePage } from "../features/timetable/pages/EditTimetablePage";
 import { TimetableDetailPage } from "../features/timetable/pages/TimetableDetailPage";
 import { TimetableListPage } from "../features/timetable/pages/TimetableListPage";
+import { AnnouncementDetailPage } from "../features/announcements/pages/AnnouncementDetailPage";
+import { AnnouncementListPage } from "../features/announcements/pages/AnnouncementListPage";
+import { CreateAnnouncementPage } from "../features/announcements/pages/CreateAnnouncementPage";
+import { EditAnnouncementPage } from "../features/announcements/pages/EditAnnouncementPage";
 import { NotificationDetailPage } from "../features/notifications/pages/NotificationDetailPage";
 import { NotificationListPage } from "../features/notifications/pages/NotificationListPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
@@ -55,6 +59,8 @@ export function AppRouter() {
             <Route path="/app" element={<AppHomeRedirect />} />
             <Route path="/app/profile" element={<ProfilePage />} />
             <Route path="/app/profile/password" element={<ChangePasswordPage />} />
+            <Route path="/app/announcements" element={<AnnouncementListPage />} />
+            <Route path="/app/announcements/:id" element={<AnnouncementDetailPage />} />
             <Route path="/app/notifications" element={<NotificationListPage />} />
             <Route path="/app/notifications/:id" element={<NotificationDetailPage />} />
             <Route element={<RequirePersona allow="admin" />}>
@@ -73,6 +79,8 @@ export function AppRouter() {
               <Route path="/app/exams/:id/edit" element={<EditExamPage />} />
               <Route path="/app/timetables/new" element={<CreateTimetablePage />} />
               <Route path="/app/timetables/:id/edit" element={<EditTimetablePage />} />
+              <Route path="/app/announcements/new" element={<CreateAnnouncementPage />} />
+              <Route path="/app/announcements/:id/edit" element={<EditAnnouncementPage />} />
             </Route>
             <Route element={<RequirePersona allow="teacher" />}>
               <Route path="/app/teacher" element={<TeacherHomePage />} />
