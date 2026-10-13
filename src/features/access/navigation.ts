@@ -1,4 +1,4 @@
-import { Award, Bell, CalendarCheck, CalendarDays, ClipboardList, Contact, GraduationCap, House, IdCard, KeyRound, Megaphone, Presentation, School, Shield, UserPlus, UserRound, Users, UserX, Wallet } from "lucide-react";
+import { Award, Bell, BookOpen, CalendarCheck, CalendarDays, ClipboardList, Contact, GraduationCap, House, IdCard, KeyRound, Megaphone, Presentation, School, Shield, UserPlus, UserRound, Users, UserX, Wallet } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { SchoolPersona } from "./types";
 
@@ -104,6 +104,12 @@ const navItems: NavItem[] = [
     to: "/app/fees",
     personas: ["admin", "teacher", "student"],
     icon: Wallet,
+  },
+  {
+    label: "Library",
+    to: "/app/library",
+    personas: ["admin", "teacher", "student"],
+    icon: BookOpen,
   },
   {
     label: "Announcements",

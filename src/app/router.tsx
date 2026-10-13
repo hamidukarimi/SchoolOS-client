@@ -44,6 +44,11 @@ import { CreateFeePage } from "../features/fees/pages/CreateFeePage";
 import { EditFeePage } from "../features/fees/pages/EditFeePage";
 import { FeeDetailPage } from "../features/fees/pages/FeeDetailPage";
 import { FeeListPage } from "../features/fees/pages/FeeListPage";
+import { BookListPage } from "../features/library/pages/BookListPage";
+import { BookDetailPage } from "../features/library/pages/BookDetailPage";
+import { BorrowListPage } from "../features/library/pages/BorrowListPage";
+import { CreateBookPage } from "../features/library/pages/CreateBookPage";
+import { EditBookPage } from "../features/library/pages/EditBookPage";
 import { NotificationDetailPage } from "../features/notifications/pages/NotificationDetailPage";
 import { NotificationListPage } from "../features/notifications/pages/NotificationListPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
@@ -89,6 +94,8 @@ export function AppRouter() {
               <Route path="/app/timetables/:id/edit" element={<EditTimetablePage />} />
               <Route path="/app/fees/new" element={<CreateFeePage />} />
               <Route path="/app/fees/:id/edit" element={<EditFeePage />} />
+              <Route path="/app/library/books/new" element={<CreateBookPage />} />
+              <Route path="/app/library/books/:id/edit" element={<EditBookPage />} />
               <Route path="/app/announcements/new" element={<CreateAnnouncementPage />} />
               <Route path="/app/announcements/:id/edit" element={<EditAnnouncementPage />} />
             </Route>
@@ -118,6 +125,9 @@ export function AppRouter() {
               <Route path="/app/timetables/:id" element={<TimetableDetailPage />} />
               <Route path="/app/fees" element={<FeeListPage />} />
               <Route path="/app/fees/:id" element={<FeeDetailPage />} />
+              <Route path="/app/library" element={<BookListPage />} />
+              <Route path="/app/library/books/:id" element={<BookDetailPage />} />
+              <Route path="/app/library/borrows" element={<BorrowListPage />} />
             </Route>
           </Route>
         </Route>
