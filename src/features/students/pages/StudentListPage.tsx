@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useSearchParams } from "react-router";
 import { Alert, ServerErrorAlert } from "../../../components/ui/Alert";
-import { Button } from "../../../components/ui/Button";
+import { Button, buttonClass } from "../../../components/ui/Button";
 import { SelectField } from "../../../components/ui/SelectField";
 import { Spinner } from "../../../components/ui/Spinner";
 import { TextField } from "../../../components/ui/TextField";
@@ -46,16 +46,23 @@ export function StudentListPage() {
   const heading = persona === "student" ? "Your student record" : "Students";
   const introduction =
     persona === "admin"
-      ? "Review and open student profiles. Creating a profile needs an existing user account, and this API does not provide a way to find one."
+      ? "Review student profiles or add one for an account that already exists. Adding a profile does not enroll the student in a class."
       : persona === "teacher"
         ? "These are the students enrolled in classes you teach. Only an administrator can change a student profile."
         : "This page shows the student profile linked to your account.";
 
   return (
     <section className="mx-auto grid max-w-5xl gap-6">
-      <div>
-        <h1 className="font-serif text-4xl">{heading}</h1>
-        <p className="mt-3 max-w-3xl leading-7 text-slate-700">{introduction}</p>
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h1 className="font-serif text-4xl">{heading}</h1>
+          <p className="mt-3 max-w-3xl leading-7 text-slate-700">{introduction}</p>
+        </div>
+        {persona === "admin" ? (
+          <Link to="/app/students/new" className={buttonClass("primary")}>
+            Add student
+          </Link>
+        ) : null}
       </div>
       {notice ? <Alert tone="success">{notice}</Alert> : null}
 

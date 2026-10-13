@@ -47,6 +47,16 @@ export async function updateStudent(
   };
 }
 
+export async function createStudent(
+  input: StudentUpdatePayload & { userId: string; studentId: string },
+): Promise<{ student: StudentRecord; message: string }> {
+  const response = await http.post<ApiSuccess<unknown>>("/students", input);
+  return {
+    student: normalizeStudent(requireData(response.data.data, "Create student")),
+    message: response.data.message ?? "Student created successfully",
+  };
+}
+
 export async function deleteStudent(id: string): Promise<string> {
   const response = await http.delete<ApiSuccess<null>>(`/students/${id}`);
   return response.data.message ?? "Student deleted successfully";

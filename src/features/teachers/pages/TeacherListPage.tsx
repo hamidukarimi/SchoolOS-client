@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useSearchParams } from "react-router";
 import { Alert, ServerErrorAlert } from "../../../components/ui/Alert";
-import { Button } from "../../../components/ui/Button";
+import { Button, buttonClass } from "../../../components/ui/Button";
 import { SelectField } from "../../../components/ui/SelectField";
 import { Spinner } from "../../../components/ui/Spinner";
 import { TextField } from "../../../components/ui/TextField";
@@ -52,9 +52,16 @@ export function TeacherListPage() {
 
   return (
     <section className="mx-auto grid max-w-5xl gap-6">
-      <div>
-        <h1 className="font-serif text-4xl">{teacherListHeading(persona)}</h1>
-        <p className="mt-3 max-w-3xl leading-7 text-slate-700">{teacherListIntroduction(persona)}</p>
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h1 className="font-serif text-4xl">{teacherListHeading(persona)}</h1>
+          <p className="mt-3 max-w-3xl leading-7 text-slate-700">{teacherListIntroduction(persona)}</p>
+        </div>
+        {persona === "admin" ? (
+          <Link to="/app/teachers/new" className={buttonClass("primary")}>
+            Add teacher
+          </Link>
+        ) : null}
       </div>
       {notice ? <Alert tone="success">{notice}</Alert> : null}
 

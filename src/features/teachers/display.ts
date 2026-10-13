@@ -11,7 +11,7 @@ export function teacherListHeading(persona: SchoolPersona | undefined): string {
 
 export function teacherListIntroduction(persona: SchoolPersona | undefined): string {
   if (persona === "admin") {
-    return "Review and open teacher profiles. Creating a profile needs an existing user account, and this API does not provide a way to find one.";
+    return "Review teacher profiles or add one for an account that already exists. Adding a profile does not assign classes.";
   }
   if (persona === "teacher") {
     return "This page shows the teaching profile linked to your account. Only an administrator can change it.";

@@ -23,6 +23,21 @@ export const teacherFormSchema = z.object({
 
 export type TeacherFormValues = z.infer<typeof teacherFormSchema>;
 
+export const createTeacherFormSchema = teacherFormSchema.extend({
+  userId: z.string().regex(/^[a-f\d]{24}$/i, "Choose an account"),
+  teacherId: z.string().trim().min(1, "Teacher ID is required"),
+});
+
+export type CreateTeacherFormValues = z.infer<typeof createTeacherFormSchema>;
+
+export function toTeacherCreatePayload(values: CreateTeacherFormValues) {
+  return {
+    userId: values.userId,
+    teacherId: values.teacherId.trim(),
+    ...toTeacherUpdatePayload(values),
+  };
+}
+
 function optionalNumber(value: string): number | undefined {
   const trimmed = value.trim();
   if (!trimmed) return undefined;

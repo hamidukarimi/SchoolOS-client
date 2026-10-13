@@ -70,7 +70,7 @@ describe("teacher access copy", () => {
   it("describes each persona's teacher scope", () => {
     expect(teacherListIntroduction("teacher")).toMatch(/linked to your account/);
     expect(teacherListIntroduction("student")).toMatch(/assigned to your classes/);
-    expect(teacherListIntroduction("admin")).toMatch(/existing user account/);
+    expect(teacherListIntroduction("admin")).toMatch(/account that already exists/);
     expect(teacherEmptyMessage("student", false)).toMatch(/assigned to your classes/);
   });
 });

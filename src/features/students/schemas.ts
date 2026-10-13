@@ -16,6 +16,21 @@ export const studentFormSchema = z.object({
 
 export type StudentFormValues = z.infer<typeof studentFormSchema>;
 
+export const createStudentFormSchema = studentFormSchema.extend({
+  userId: z.string().regex(/^[a-f\d]{24}$/i, "Choose an account"),
+  studentId: z.string().trim().min(1, "Student ID is required"),
+});
+
+export type CreateStudentFormValues = z.infer<typeof createStudentFormSchema>;
+
+export function toStudentCreatePayload(values: CreateStudentFormValues) {
+  return {
+    userId: values.userId,
+    studentId: values.studentId.trim(),
+    ...toStudentUpdatePayload(values),
+  };
+}
+
 export function toStudentUpdatePayload(values: StudentFormValues): StudentUpdatePayload {
   const payload: StudentUpdatePayload = {
     firstName: values.firstName.trim(),

@@ -6,9 +6,11 @@ import { ChangePasswordPage } from "../features/auth/pages/ChangePasswordPage";
 import { ProfilePage } from "../features/auth/pages/ProfilePage";
 import { AppLayout, MarketingLayout } from "../layouts/AppLayouts";
 import { AdminHomePage, PendingAccessPage, StudentHomePage, TeacherHomePage } from "../features/access/pages/AccessPages";
+import { CreateStudentPage } from "../features/students/pages/CreateStudentPage";
 import { EditStudentPage } from "../features/students/pages/EditStudentPage";
 import { StudentDetailPage } from "../features/students/pages/StudentDetailPage";
 import { StudentListPage } from "../features/students/pages/StudentListPage";
+import { CreateTeacherPage } from "../features/teachers/pages/CreateTeacherPage";
 import { EditTeacherPage } from "../features/teachers/pages/EditTeacherPage";
 import { TeacherDetailPage } from "../features/teachers/pages/TeacherDetailPage";
 import { TeacherListPage } from "../features/teachers/pages/TeacherListPage";
@@ -65,7 +67,9 @@ export function AppRouter() {
             <Route path="/app/notifications/:id" element={<NotificationDetailPage />} />
             <Route element={<RequirePersona allow="admin" />}>
               <Route path="/app/admin" element={<AdminHomePage />} />
+              <Route path="/app/students/new" element={<CreateStudentPage />} />
               <Route path="/app/students/:id/edit" element={<EditStudentPage />} />
+              <Route path="/app/teachers/new" element={<CreateTeacherPage />} />
               <Route path="/app/teachers/:id/edit" element={<EditTeacherPage />} />
               <Route path="/app/classes/new" element={<CreateClassPage />} />
               <Route path="/app/classes/:id/edit" element={<EditClassPage />} />
