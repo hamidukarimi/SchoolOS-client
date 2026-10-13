@@ -12,7 +12,7 @@ export function AdminHomePage() {
       <p className="mt-4 leading-7 text-slate-700">
         This account is an administrator because its role is admin. Student records can be opened
         from Students, teacher records from Teachers, classes from Classes, class lists from
-        Enrollment, attendance from Attendance, results from Results, and exams from Exams.
+        Enrollment, attendance from Attendance, results from Results, exams from Exams, and the schedule from Timetable.
       </p>
     </section>
   );
@@ -27,7 +27,7 @@ export function TeacherHomePage() {
         This account role is user. A teacher profile linked to the account gives teacher access.
         Students enrolled in your classes can be opened from Students. Your own teaching profile
         is under Teaching record, the classes you teach are under Classes, attendance you can
-        read is under Attendance, results you can read are under Results, and exams you can read are under Exams.
+        read is under Attendance, results you can read are under Results, exams you can read are under Exams, and lessons you can read are under Timetable.
       </p>
     </section>
   );
@@ -41,7 +41,7 @@ export function StudentHomePage() {
       <p className="mt-4 leading-7 text-slate-700">
         This account role is user. A student profile linked to the account gives student access.
         Your own student profile can be opened from My record, your class teachers from Teachers,
-        your classes from Classes, your attendance from Attendance, your results from Results, and exams for your classes from Exams.
+        your classes from Classes, your attendance from Attendance, your results from Results, exams for your classes from Exams, and your class schedule from Timetable.
       </p>
     </section>
   );

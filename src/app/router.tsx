@@ -30,6 +30,10 @@ import { CreateExamPage } from "../features/exams/pages/CreateExamPage";
 import { EditExamPage } from "../features/exams/pages/EditExamPage";
 import { ExamDetailPage } from "../features/exams/pages/ExamDetailPage";
 import { ExamListPage } from "../features/exams/pages/ExamListPage";
+import { CreateTimetablePage } from "../features/timetable/pages/CreateTimetablePage";
+import { EditTimetablePage } from "../features/timetable/pages/EditTimetablePage";
+import { TimetableDetailPage } from "../features/timetable/pages/TimetableDetailPage";
+import { TimetableListPage } from "../features/timetable/pages/TimetableListPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { AppHomeRedirect, GuestOnly, RequireAuth, RequirePersona } from "../routes/guards";
 
@@ -63,6 +67,8 @@ export function AppRouter() {
               <Route path="/app/grades/:id/edit" element={<EditGradePage />} />
               <Route path="/app/exams/new" element={<CreateExamPage />} />
               <Route path="/app/exams/:id/edit" element={<EditExamPage />} />
+              <Route path="/app/timetables/new" element={<CreateTimetablePage />} />
+              <Route path="/app/timetables/:id/edit" element={<EditTimetablePage />} />
             </Route>
             <Route element={<RequirePersona allow="teacher" />}>
               <Route path="/app/teacher" element={<TeacherHomePage />} />
@@ -86,6 +92,8 @@ export function AppRouter() {
               <Route path="/app/grades/:id" element={<GradeDetailPage />} />
               <Route path="/app/exams" element={<ExamListPage />} />
               <Route path="/app/exams/:id" element={<ExamDetailPage />} />
+              <Route path="/app/timetables" element={<TimetableListPage />} />
+              <Route path="/app/timetables/:id" element={<TimetableDetailPage />} />
             </Route>
           </Route>
         </Route>
