@@ -11,6 +11,7 @@ describe("navigation", () => {
 
   it("shows only account pages before a persona is known", () => {
     expect(accountNavigation().map((item) => item.to)).toEqual([
+      "/app/notifications",
       "/app/profile",
       "/app/profile/password",
     ]);
@@ -39,7 +40,7 @@ describe("navigation", () => {
     );
     expect(navigationFor("student").map((item) => item.label)).not.toContain("Students");
     expect(navigationFor("admin").map((item) => item.label)).toEqual(
-      expect.arrayContaining(["Students", "Teachers", "Classes", "Enrollment", "Attendance", "Results", "Exams", "Timetable"]),
+      expect.arrayContaining(["Students", "Teachers", "Classes", "Enrollment", "Attendance", "Results", "Exams", "Timetable", "Notifications"]),
     );
     expect(navigationFor("teacher").map((item) => item.label)).toContain("Attendance");
     expect(navigationFor("teacher").map((item) => item.label)).toContain("Results");
@@ -63,6 +64,7 @@ describe("navigation", () => {
   it("limits an unscoped user to home, profile, and password", () => {
     expect(navigationFor("unscoped").map((item) => item.label)).toEqual([
       "Home",
+      "Notifications",
       "Profile",
       "Password",
     ]);

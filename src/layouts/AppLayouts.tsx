@@ -5,6 +5,7 @@ import { buttonClass } from "../components/ui/Button";
 import { useAccess } from "../features/access/access-context";
 import { accountNavigation, navigationFor, personaLabel, type NavItem } from "../features/access/navigation";
 import { useAuth } from "../features/auth/auth-context";
+import { UnreadCountBadge } from "../features/notifications/UnreadCountBadge";
 
 export function MarketingLayout() {
   const { status } = useAuth();
@@ -64,7 +65,8 @@ function SidebarNav({ items }: { items: NavItem[] }) {
           <li key={item.to}>
             <NavLink to={item.to} end={item.end} className={({ isActive }) => navLinkClass(isActive)}>
               <Icon aria-hidden="true" size={18} />
-              {item.label}
+              <span className="min-w-0 flex-1">{item.label}</span>
+              {item.to === "/app/notifications" ? <UnreadCountBadge /> : null}
             </NavLink>
           </li>
         );
@@ -134,6 +136,9 @@ export function AppLayout() {
               >
                 {menuOpen ? <X aria-hidden="true" size={18} /> : <Menu aria-hidden="true" size={18} />}
                 <span className="sr-only">{menuOpen ? "Close menu" : "Open menu"}</span>
+                <span className="md:hidden">
+                  <UnreadCountBadge />
+                </span>
               </button>
               <div>
                 <p className="text-sm font-medium text-ink">
