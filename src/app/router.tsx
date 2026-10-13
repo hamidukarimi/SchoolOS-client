@@ -49,6 +49,10 @@ import { BookDetailPage } from "../features/library/pages/BookDetailPage";
 import { BorrowListPage } from "../features/library/pages/BorrowListPage";
 import { CreateBookPage } from "../features/library/pages/CreateBookPage";
 import { EditBookPage } from "../features/library/pages/EditBookPage";
+import { AccountDetailPage } from "../features/accounts/pages/AccountDetailPage";
+import { AccountListPage } from "../features/accounts/pages/AccountListPage";
+import { CreateAccountPage } from "../features/accounts/pages/CreateAccountPage";
+import { EditAccountPage } from "../features/accounts/pages/EditAccountPage";
 import { CreateStaffPage } from "../features/staff/pages/CreateStaffPage";
 import { EditStaffPage } from "../features/staff/pages/EditStaffPage";
 import { StaffDetailPage } from "../features/staff/pages/StaffDetailPage";
@@ -105,6 +109,10 @@ export function AppRouter() {
               <Route path="/app/fees/:id/edit" element={<EditFeePage />} />
               <Route path="/app/library/books/new" element={<CreateBookPage />} />
               <Route path="/app/library/books/:id/edit" element={<EditBookPage />} />
+              <Route path="/app/accounts" element={<AccountListPage />} />
+              <Route path="/app/accounts/new" element={<CreateAccountPage />} />
+              <Route path="/app/accounts/:id" element={<AccountDetailPage />} />
+              <Route path="/app/accounts/:id/edit" element={<EditAccountPage />} />
               <Route path="/app/staff" element={<StaffListPage />} />
               <Route path="/app/staff/new" element={<CreateStaffPage />} />
               <Route path="/app/staff/:id" element={<StaffDetailPage />} />

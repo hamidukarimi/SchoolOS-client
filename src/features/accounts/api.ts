@@ -1,5 +1,8 @@
 import type { ApiSuccess } from "../auth/types";
 import { http } from "../../services/http";
+import { normalizeAccount, normalizeAccountList } from "./normalize";
+import { ACCOUNT_PAGE_SIZE } from "./query";
+import type { AccountListQuery, AccountListResult, AccountRecord, AccountUpdatePayload, AccountWritePayload } from "./types";
 
 export interface AccountChoice {
   id: string;
@@ -77,4 +80,57 @@ export function accountLinkState(
     return { disabled: true, reason: "Already has a teacher profile" };
   }
   return { disabled: false, reason: null };
+}
+
+export const accountInvalidationKey = ["accounts"] as const;
+
+export function accountListKey(query: AccountListQuery) {
+  return ["accounts", "list", query] as const;
+}
+
+export function accountDetailKey(id: string) {
+  return ["accounts", "detail", id] as const;
+}
+
+function requireData<T>(data: T | undefined, action: string): T {
+  if (data === undefined || data === null) {
+    throw new Error(`${action} response did not include data.`);
+  }
+  return data;
+}
+
+export async function fetchAccounts(query: AccountListQuery): Promise<AccountListResult> {
+  const params: Record<string, string | number> = {
+    page: query.page,
+    limit: ACCOUNT_PAGE_SIZE,
+  };
+  if (query.search) params.search = query.search;
+  if (query.role) params.role = query.role;
+  if (query.status) params.status = query.status;
+  const response = await http.get<ApiSuccess<unknown>>("/admin/users", { params });
+  return normalizeAccountList(requireData(response.data.data, "Account list"));
+}
+
+export async function fetchAccount(id: string): Promise<AccountRecord> {
+  const response = await http.get<ApiSuccess<unknown>>(`/admin/users/${id}`);
+  return normalizeAccount(requireData(response.data.data, "Account"));
+}
+
+export async function createAccount(input: AccountWritePayload): Promise<{ account: AccountRecord; message: string }> {
+  const response = await http.post<ApiSuccess<unknown>>("/admin/users", input);
+  return {
+    account: normalizeAccount(requireData(response.data.data, "Create account")),
+    message: response.data.message ?? "Account created successfully",
+  };
+}
+
+export async function updateAccount(
+  id: string,
+  input: AccountUpdatePayload,
+): Promise<{ account: AccountRecord; message: string }> {
+  const response = await http.patch<ApiSuccess<unknown>>(`/admin/users/${id}`, input);
+  return {
+    account: normalizeAccount(requireData(response.data.data, "Account update")),
+    message: response.data.message ?? "Account updated successfully",
+  };
 }
