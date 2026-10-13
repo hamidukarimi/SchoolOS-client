@@ -13,7 +13,7 @@ export function AdminHomePage() {
       <p className="mt-4 leading-7 text-slate-700">
         This account is an administrator because its role is admin. Student records can be opened
         from Students, teacher records from Teachers, staff records from Staff, classes from Classes, class lists from
-        Enrollment, attendance from Attendance, results from Results, exams from Exams, the schedule from Timetable, fees from Fees, and the catalog from Library.
+        Enrollment, attendance from Attendance, results from Results, exams from Exams, the schedule from Timetable, fees from Fees, the catalog from Library, and private conversations from Messages.
         The counts below are the totals those lists return for this account.
       </p>
       <div className="mt-8">
@@ -32,7 +32,7 @@ export function TeacherHomePage() {
         This account role is user. A teacher profile linked to the account gives teacher access.
         Students enrolled in your classes can be opened from Students. Your own teaching profile
         is under Teaching record, the classes you teach are under Classes, attendance you can
-        read is under Attendance, results you can read are under Results, exams you can read are under Exams, lessons you can read are under Timetable, fees you can read are under Fees, and the catalog is under Library.
+        read is under Attendance, results you can read are under Results, exams you can read are under Exams, lessons you can read are under Timetable, fees you can read are under Fees, the catalog is under Library, and private conversations are under Messages.
       </p>
       <div className="mt-8">
         <Dashboard persona="teacher" />
@@ -49,7 +49,7 @@ export function StudentHomePage() {
       <p className="mt-4 leading-7 text-slate-700">
         This account role is user. A student profile linked to the account gives student access.
         Your own student profile can be opened from My record, your class teachers from Teachers,
-        your classes from Classes, your attendance from Attendance, your results from Results, exams for your classes from Exams, your class schedule from Timetable, your fees from Fees, and the catalog from Library.
+        your classes from Classes, your attendance from Attendance, your results from Results, exams for your classes from Exams, your class schedule from Timetable, your fees from Fees, the catalog from Library, and private conversations from Messages.
       </p>
       <div className="mt-8">
         <Dashboard persona="student" />
@@ -69,7 +69,7 @@ export function PendingAccessPage() {
         before that access exists. A staff record by itself does not grant it.
       </p>
       <p className="mt-4 leading-7 text-slate-700">
-        You can update your profile and password from this account.
+        You can update your profile and password from this account. Messages shows conversations sent to you. You can reply there, and you cannot start a new conversation until a teacher or student profile is linked, or you use an administrator account.
       </p>
     </section>
   );

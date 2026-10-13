@@ -11,6 +11,7 @@ describe("navigation", () => {
 
   it("shows only account pages before a persona is known", () => {
     expect(accountNavigation().map((item) => item.to)).toEqual([
+      "/app/messages",
       "/app/announcements",
       "/app/notifications",
       "/app/profile",
@@ -41,7 +42,7 @@ describe("navigation", () => {
     );
     expect(navigationFor("student").map((item) => item.label)).not.toContain("Students");
     expect(navigationFor("admin").map((item) => item.label)).toEqual(
-      expect.arrayContaining(["Students", "Teachers", "Staff", "Classes", "Enrollment", "Attendance", "Results", "Exams", "Timetable", "Fees", "Library", "Announcements", "Notifications"]),
+      expect.arrayContaining(["Students", "Teachers", "Staff", "Classes", "Enrollment", "Attendance", "Results", "Exams", "Timetable", "Fees", "Library", "Messages", "Announcements", "Notifications"]),
     );
     expect(navigationFor("teacher").map((item) => item.label)).toContain("Attendance");
     expect(navigationFor("teacher").map((item) => item.label)).toContain("Results");
@@ -58,6 +59,8 @@ describe("navigation", () => {
     expect(navigationFor("student").map((item) => item.label)).toContain("Fees");
     expect(navigationFor("teacher").map((item) => item.label)).toContain("Library");
     expect(navigationFor("student").map((item) => item.label)).toContain("Library");
+    expect(navigationFor("teacher").map((item) => item.label)).toContain("Messages");
+    expect(navigationFor("student").map((item) => item.label)).toContain("Messages");
     expect(navigationFor("student").map((item) => item.label)).not.toContain("Enrollment");
     expect(navigationFor("student").map((item) => item.label)).toContain("Classes");
     expect(navigationFor("unscoped").map((item) => item.to)).not.toContain("/app/teachers");
@@ -75,6 +78,7 @@ describe("navigation", () => {
   it("limits an unscoped user to home, announcements, notifications, profile, and password", () => {
     expect(navigationFor("unscoped").map((item) => item.label)).toEqual([
       "Home",
+      "Messages",
       "Announcements",
       "Notifications",
       "Profile",

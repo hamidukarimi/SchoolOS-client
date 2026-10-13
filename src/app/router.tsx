@@ -53,6 +53,7 @@ import { CreateStaffPage } from "../features/staff/pages/CreateStaffPage";
 import { EditStaffPage } from "../features/staff/pages/EditStaffPage";
 import { StaffDetailPage } from "../features/staff/pages/StaffDetailPage";
 import { StaffListPage } from "../features/staff/pages/StaffListPage";
+import { MessagesPage } from "../features/messages/pages/MessagesPage";
 import { NotificationDetailPage } from "../features/notifications/pages/NotificationDetailPage";
 import { NotificationListPage } from "../features/notifications/pages/NotificationListPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
@@ -76,6 +77,8 @@ export function AppRouter() {
             <Route path="/app/profile/password" element={<ChangePasswordPage />} />
             <Route path="/app/announcements" element={<AnnouncementListPage />} />
             <Route path="/app/announcements/:id" element={<AnnouncementDetailPage />} />
+            <Route path="/app/messages" element={<MessagesPage />} />
+            <Route path="/app/messages/:participantId" element={<MessagesPage />} />
             <Route path="/app/notifications" element={<NotificationListPage />} />
             <Route path="/app/notifications/:id" element={<NotificationDetailPage />} />
             <Route element={<RequirePersona allow="admin" />}>
