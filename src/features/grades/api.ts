@@ -1,10 +1,9 @@
 import type { ApiSuccess } from "../auth/types";
 import { http } from "../../services/http";
-import { normalizeExamOptionList, normalizeGrade, normalizeGradeList, normalizeGradeSummary } from "./normalize";
+import { normalizeGrade, normalizeGradeList, normalizeGradeSummary } from "./normalize";
 import { GRADE_LOOKUP_LIMIT, GRADE_PAGE_SIZE } from "./query";
 import type {
   GradeCreatePayload,
-  GradeExamListResult,
   GradeListQuery,
   GradeListResult,
   GradeRecord,
@@ -26,10 +25,6 @@ export function gradeSummaryKey(studentId: string, academicYear?: string) {
 
 export function examGradeKey(examId: string) {
   return ["grades", "exam", examId] as const;
-}
-
-export function gradeExamOptionsKey(subject: string) {
-  return ["grades", "exam-options", subject] as const;
 }
 
 export const gradeInvalidationKey = ["grades"] as const;
@@ -69,13 +64,6 @@ export async function fetchGradeSummary(studentId: string, academicYear?: string
     params: academicYear ? { academicYear } : undefined,
   });
   return normalizeGradeSummary(requireData(response.data.data, "Grade summary"));
-}
-
-export async function fetchExamOptions(subject: string): Promise<GradeExamListResult> {
-  const params: Record<string, string | number> = { page: 1, limit: GRADE_LOOKUP_LIMIT };
-  if (subject) params.subject = subject;
-  const response = await http.get<ApiSuccess<unknown>>("/exams", { params });
-  return normalizeExamOptionList(requireData(response.data.data, "Exam list"));
 }
 
 export async function createGrade(input: GradeCreatePayload): Promise<string> {

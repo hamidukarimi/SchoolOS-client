@@ -1,15 +1,11 @@
-import {
-  EXAM_STATUSES,
-  type ExamStatus,
-  type GradeClassRef,
-  type GradeExamListResult,
-  type GradeExamOption,
-  type GradeExamRef,
-  type GradeListResult,
-  type GradeRecord,
-  type GradeStudentRef,
-  type GradeSummary,
-  type GradeTeacherRef,
+import type {
+  GradeClassRef,
+  GradeExamRef,
+  GradeListResult,
+  GradeRecord,
+  GradeStudentRef,
+  GradeSummary,
+  GradeTeacherRef,
 } from "./types";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -94,11 +90,6 @@ function readExam(value: unknown): GradeExamRef | null {
   };
 }
 
-function readExamStatus(value: string): ExamStatus | "" {
-  if ((EXAM_STATUSES as readonly string[]).includes(value)) return value as ExamStatus;
-  return "";
-}
-
 export function normalizeGrade(value: unknown): GradeRecord {
   if (!isRecord(value)) throw new Error("Grade response was not an object.");
   const id = readId(value._id) ?? readId(value.id);
@@ -137,36 +128,5 @@ export function normalizeGradeSummary(value: unknown): GradeSummary {
     passed: readCount(value.passed, "passed"),
     failed: readCount(value.failed, "failed"),
     averageMarks: readCount(value.averageMarks, "average marks"),
-  };
-}
-
-export function normalizeExamOption(value: unknown): GradeExamOption {
-  if (!isRecord(value)) throw new Error("Exam response was not an object.");
-  const id = readId(value._id) ?? readId(value.id);
-  const title = readText(value, "title").trim();
-  if (!id || !title) throw new Error("Exam response did not include an id.");
-  return {
-    id,
-    title,
-    subject: readText(value, "subject").trim(),
-    academicYear: readText(value, "academicYear").trim(),
-    totalMarks: readRequiredNumber(value.totalMarks, "exam total marks"),
-    passingMarks: readRequiredNumber(value.passingMarks, "exam passing marks"),
-    date: readText(value, "date"),
-    status: readExamStatus(readText(value, "status")),
-    classRef: readClass(value.classId),
-    teacher: readTeacher(value.teacherId),
-  };
-}
-
-export function normalizeExamOptionList(value: unknown): GradeExamListResult {
-  if (!isRecord(value) || !Array.isArray(value.exams)) {
-    throw new Error("Exam list response was not valid.");
-  }
-  return {
-    exams: value.exams.map((item) => normalizeExamOption(item)),
-    total: typeof value.total === "number" && Number.isFinite(value.total) ? value.total : 0,
-    page: typeof value.page === "number" && Number.isFinite(value.page) ? value.page : 1,
-    totalPages: typeof value.totalPages === "number" && Number.isFinite(value.totalPages) ? value.totalPages : 0,
   };
 }

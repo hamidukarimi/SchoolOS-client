@@ -10,7 +10,9 @@ import { useAccess } from "../../access/access-context";
 import { getApiErrorMessage } from "../../../services/api-error";
 import { classListKey, fetchClasses } from "../../classes/api";
 import { fetchStudents, studentListKey } from "../../students/api";
-import { fetchExamOptions, fetchGradeSummary, fetchGrades, gradeExamOptionsKey, gradeListKey, gradeSummaryKey } from "../api";
+import { examListKey, fetchExams } from "../../exams/api";
+import { EXAM_LOOKUP_LIMIT, examChoicesQuery } from "../../exams/query";
+import { fetchGradeSummary, fetchGrades, gradeListKey, gradeSummaryKey } from "../api";
 import {
   canManageGrades,
   formatStoredGrade,
@@ -73,8 +75,8 @@ export function GradeListPage() {
     enabled: persona !== "student" && studentQueryText.length > 0,
   });
   const examsQuery = useQuery({
-    queryKey: gradeExamOptionsKey(examQueryText ?? ""),
-    queryFn: () => fetchExamOptions(examQueryText ?? ""),
+    queryKey: examListKey(examChoicesQuery(examQueryText ?? "")),
+    queryFn: () => fetchExams(examChoicesQuery(examQueryText ?? ""), EXAM_LOOKUP_LIMIT),
     enabled: examQueryText !== null,
   });
 

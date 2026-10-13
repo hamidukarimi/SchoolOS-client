@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { canManageGrades, canSubmitGrade, gradeDateInput, marksPercentage } from "./display";
-import { normalizeExamOptionList, normalizeGrade, normalizeGradeList, normalizeGradeSummary } from "./normalize";
+import { canManageGrades, canSubmitGrade, marksPercentage } from "./display";
+import { normalizeGrade, normalizeGradeList, normalizeGradeSummary } from "./normalize";
 import { gradeListQueryForPersona, gradeListSearch, parseGradeListQuery } from "./query";
 import { recordGradeSchema, toGradeCreatePayload, toGradeUpdatePayload } from "./schemas";
 
@@ -95,36 +95,6 @@ describe("grade list, exams, and summary", () => {
       failed: 1,
       averageMarks: 72.5,
     });
-  });
-
-  it("reads an exam that can be selected for a result", () => {
-    const exams = normalizeExamOptionList({
-      exams: [
-        {
-          _id: "exam-1",
-          title: "Midterm",
-          subject: "Mathematics",
-          academicYear: "2026-2027",
-          totalMarks: 100,
-          passingMarks: 40,
-          date: "2026-10-13T00:00:00.000Z",
-          status: "completed",
-          classId: { _id: "class-1", name: "Grade 6", section: "A", grade: "6" },
-          teacherId: { _id: "teacher-1", firstName: "Karim", lastName: "Rahimi", teacherId: "TCH-1" },
-        },
-      ],
-      total: 1,
-      page: 1,
-      totalPages: 1,
-    });
-    expect(exams.exams[0]).toMatchObject({
-      id: "exam-1",
-      subject: "Mathematics",
-      classRef: { id: "class-1" },
-      teacher: { id: "teacher-1" },
-      status: "completed",
-    });
-    expect(gradeDateInput("2026-10-13T00:00:00.000Z")).toBe("2026-10-13");
   });
 });
 

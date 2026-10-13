@@ -64,30 +64,6 @@ export interface GradeSummary {
   averageMarks: number;
 }
 
-export const EXAM_STATUSES = ["scheduled", "ongoing", "completed", "cancelled"] as const;
-
-export type ExamStatus = (typeof EXAM_STATUSES)[number];
-
-export interface GradeExamOption {
-  id: string;
-  title: string;
-  subject: string;
-  academicYear: string;
-  totalMarks: number;
-  passingMarks: number;
-  date: string;
-  status: ExamStatus | "";
-  classRef: GradeClassRef | null;
-  teacher: GradeTeacherRef | null;
-}
-
-export interface GradeExamListResult {
-  exams: GradeExamOption[];
-  total: number;
-  page: number;
-  totalPages: number;
-}
-
 export interface GradeCreatePayload {
   studentId: string;
   examId: string;

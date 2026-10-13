@@ -9,7 +9,9 @@ import { SelectField } from "../../../components/ui/SelectField";
 import { TextField } from "../../../components/ui/TextField";
 import { getApiErrorMessage, type ParsedApiError } from "../../../services/api-error";
 import { classDetailKey, fetchClass } from "../../classes/api";
-import { createGrade, examGradeKey, fetchExamGrades, fetchExamOptions, gradeExamOptionsKey, gradeInvalidationKey } from "../api";
+import { examListKey, fetchExams } from "../../exams/api";
+import { EXAM_LOOKUP_LIMIT, examChoicesQuery } from "../../exams/query";
+import { createGrade, examGradeKey, fetchExamGrades, gradeInvalidationKey } from "../api";
 import { canSubmitGrade, formatStoredGrade } from "../display";
 import { recordGradeSchema, toGradeCreatePayload, type RecordGradeValues } from "../schemas";
 
@@ -20,8 +22,8 @@ export function RecordGradePage() {
   const [examSearch, setExamSearch] = useState("");
   const [examQueryText, setExamQueryText] = useState<string | null>(null);
   const examsQuery = useQuery({
-    queryKey: gradeExamOptionsKey(examQueryText ?? ""),
-    queryFn: () => fetchExamOptions(examQueryText ?? ""),
+    queryKey: examListKey(examChoicesQuery(examQueryText ?? "")),
+    queryFn: () => fetchExams(examChoicesQuery(examQueryText ?? ""), EXAM_LOOKUP_LIMIT),
     enabled: examQueryText !== null,
   });
   const {
